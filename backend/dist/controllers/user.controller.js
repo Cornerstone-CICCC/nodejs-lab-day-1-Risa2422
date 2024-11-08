@@ -94,12 +94,19 @@ const userProfile = (req, res) => {
     const { user_info } = req.signedCookies;
     res.status(200).json(user_info);
 };
+// Log out
+const logout = (req, res) => {
+    res.clearCookie("user_info");
+    res.status(200).send("ok");
+};
 exports.default = {
     getUsers,
     getUserById,
+    logout,
     addUser,
     updateUserById,
     deleteUserById,
     loginUser,
     userProfile,
+    logout,
 };

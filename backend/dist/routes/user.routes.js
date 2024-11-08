@@ -14,9 +14,5 @@ userRouter.get("/users", user_controller_1.default.getUsers);
 userRouter.get("/user/:id", user_controller_1.default.getUserById);
 userRouter.put("/user/:id", user_controller_1.default.updateUserById);
 userRouter.delete("/user/:id", user_controller_1.default.deleteUserById);
-// Logout Route
-userRouter.get("/logout", (req, res) => {
-    res.clearCookie("user_info");
-    res.status(200).send("ok");
-});
+userRouter.get("/logout", user_controller_1.default.logout);
 exports.default = userRouter;
