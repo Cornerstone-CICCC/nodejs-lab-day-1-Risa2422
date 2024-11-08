@@ -1,0 +1,63 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Astro</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="title">Your Profile</h1>
+      <ul>
+        <li>User Name : <span class="username"></span></li>
+        <li>First Name : <span class="firstname"></span></li>
+        <li>Last Name : <span class="lastname"></span></li>
+      </ul>
+      <button class="logout">Logout</button>
+    </div>
+
+    <script>
+      const username = document.querySelector('.username') as HTMLHeadingElement;
+      const firstname = document.querySelector('.firstname') as HTMLHeadingElement;
+      const lastname = document.querySelector('.lastname') as HTMLHeadingElement;
+      const logout = document.querySelector('.logout') as HTMLHeadingElement;
+
+      logout.addEventListener('click', async () => {
+        const response = await fetch(`http://localhost:3000/logout`,{
+             credentials: 'include'
+        });
+
+        if (response.ok) {
+          window.location.href = '/login';
+        }
+      });
+
+      const checkAuth = async () => {
+        const res = await fetch(`http://localhost:3000/check-auth`, {
+          credentials: 'include'
+        });
+        const result = await res.json();
+        const convertData = JSON.parse(result);
+
+        if (result) {
+          const response = await fetch(`http://localhost:3000/user/${convertData.userId}`, {
+            method: 'GET',
+            headers: {
+              "Content-Type": 'application/json',
+            },
+            credentials: 'include'
+          });
+
+          const res = await response.json();
+
+          username.textContent = res.username;
+          firstname.textContent = res.firstname;
+          lastname.textContent = res.lastname;
+        }
+      };
+
+      checkAuth();
+    </script>
+  </body>
+</html>
