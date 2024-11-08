@@ -83,7 +83,7 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         return;
     }
     res.cookie("user_info", JSON.stringify({ username: user.username, userId: user.id }), {
-        httpOnly: false,
+        httpOnly: true,
         maxAge: 3 * 60 * 1000,
         signed: true,
     });
@@ -102,7 +102,6 @@ const logout = (req, res) => {
 exports.default = {
     getUsers,
     getUserById,
-    logout,
     addUser,
     updateUserById,
     deleteUserById,

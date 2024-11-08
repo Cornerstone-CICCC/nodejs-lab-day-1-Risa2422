@@ -12,11 +12,11 @@
       <form class="login-form">
         <label>
           <span>Username:</span>
-          <input type="text" name="username" autocomplete="off" id="username" required>
+          <input type="text" name="username" autocomplete="off" id="username" required />
         </label>
         <label>
           <span>Password:</span>
-          <input type="password" name="password" required>
+          <input type="password" name="password" required />
         </label>
         <button type="submit">Log In</button>
       </form>
@@ -47,7 +47,7 @@
         
         const data = await response.json();
 
-        if (data.ok) {
+        if (response.ok) {
           window.location.href = '/profile';
         } else {
           alert('Please confirm your information.');

@@ -47,7 +47,7 @@ const updateUserById = (
     lastname,
     firstname,
   });
-  
+
   if (!user) {
     res.status(404).json({ message: "User not found" });
     return;
@@ -86,7 +86,7 @@ const loginUser = async (req: Request<{}, {}, User>, res: Response) => {
     "user_info",
     JSON.stringify({ username: user.username, userId: user.id }),
     {
-      httpOnly: false,
+      httpOnly: true,
       maxAge: 3 * 60 * 1000,
       signed: true,
     }
