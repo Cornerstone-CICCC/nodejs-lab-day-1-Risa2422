@@ -1,0 +1,70 @@
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Astro</title>
+	</head>
+	<body>
+		<div class="container">
+			<h1>Register</h1>
+			<form class="login-form">
+				<label>
+					<span>Username:</span>
+					<input type="text" name="username" autocomplete="off" id="username" required>
+				</label>
+				<label>
+					<span>Password:</span>
+					<input type="password" name="password" required>
+				</label>
+                <label>
+					<span>FirstName:</span>
+					<input type="text" name="firstname" required>
+				</label>
+                <label>
+					<span>LastName:</span>
+					<input type="text" name="lastname" required>
+				</label>
+				<button type="submit">Register</button>
+			</form>
+		</div>
+		<script>
+			const form = document.querySelector('.login-form') as HTMLFormElement
+
+			form.addEventListener('submit', async (e) => {
+				e.preventDefault()
+				const formData = new FormData(form)
+				const username = formData.get('username')
+				const password = formData.get('password')
+				const firstname = formData.get('firstname')
+				const lastname = formData.get('lastname')			
+
+				const response = await fetch(`http://localhost:3000/signup`, {
+					method: 'POST',
+					headers: {
+						"Content-Type": 'application/json',
+					},
+					body: JSON.stringify({
+						"username": username,
+						"password": password,
+                        "firstname": firstname,
+                        "lastname": lastname
+					}),
+
+					credentials: 'include'
+				})
+
+				const data = await response.json()
+                if(data){
+                    alert('Successfully registered!')
+                }
+                else{
+                    alert('Failed to register')
+                }
+
+                form.reset()
+			})
+		</script>
+	</body>
+</html>
